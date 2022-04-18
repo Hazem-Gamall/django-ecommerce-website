@@ -1,0 +1,79 @@
+{% extends 'views/base.html' %}
+
+{% block body %}
+
+{% include 'partials/header.html' %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow mt-5">
+                <div class="card-header shadow bg-secondary">
+                    <h3 class='text-center text-light'>Your Orders</h3>
+                </div>
+                <div class="card-body">
+                    {% for order in orders %}
+                    <div class="card mt-3 py-3">
+                        <div class="row justify-content-center">
+                            <div class="col-10 mb-0 p-0">
+                                <div class="card-header shadow">
+                                    <h4>{{order.date}}</h4>
+                                </div>
+                            </div>
+                            <div class="card-body col-10 mt-0 p-0 shadow">
+                                {% for product in order.products %}
+                                <div class="card">
+                                    <div class="row">
+                                        <div class="col-12 col-md-4">
+                                            <img class='w-100' src="{{product.image}}" alt="">
+                                        </div>
+                                        <div class="col-12 col-md-8">
+                                            <div class="card-body">
+                                                <div class="card-text">
+                                                    <div>
+                                                        <p>{{product.description}}</p>
+                                                        <hr>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class='col-6'>
+                                                            <h5>Brand:</h5>
+                                                            <p><strong>{{product.brand.name|title}}</strong></p>
+                                                            <hr>
+                                                        </div>
+                                                        <div class='col-6'>
+                                                            <h5>Category:</h5>
+                                                            <p><a
+                                                                    href="{% url 'category-url' product.category.id %}"><strong>{{product.category.name|title}}</strong></a>
+                                                            </p>
+                                                            <hr>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row justify-content-center">
+                                                        <div>
+                                                            <h5>Price:</h5>
+                                                            <p><strong>EGP {{product.price}}</strong></p>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    {% comment %} <p>{{order.date}}</p> {% endcomment %}
+                    {% comment %} <p>{{order.products}}</p> {% endcomment %}
+
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}

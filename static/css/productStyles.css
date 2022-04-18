@@ -1,0 +1,14 @@
+/* #main-content{
+} */
+
+
+.product-img{
+    max-width: 300px;
+    max-height: 600px;
+}
+
+.product{
+    background-color: aliceblue;
+    padding-top: 40px;
+    margin-top: 30px;
+}

@@ -1,0 +1,92 @@
+{%extends 'views/base.html'%}
+
+{%block head_elements%}
+{%load static%}
+<link rel="stylesheet" href="{% static 'css/searchStyles.css'%}">
+
+{%endblock head_elements%}
+
+{% block body %}
+
+{% include 'partials/header.html'%}
+
+<div id="main-content">
+    <div class="container ">
+        <div class="row">
+            <div class="col-12 col-md-2">
+                <aside id='filters'>
+                    <form id='filters_form'>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h3 class='text-center'>Price</h3>
+                                </div>
+                            </div>
+
+
+                            <div class="row ml-auto">
+                                <div class="col-12">
+                                    <input class='price-filter' type="radio" name='price-filter' value='price' id="test2"
+                                        {% if checked == 'min' %}checked{% endif %}>
+                                    <label for="test2">Min</label>
+                                </div>
+                            </div>
+
+                            <div class="row ml-auto">
+                                <div class="col-12">
+                                    <input class='price-filter' type="radio" name='price-filter' value='-price' id="test3"
+                                        {% if checked == 'max' %}checked{% endif %}>
+                                    <label for="test3">Max</label>
+                                </div>
+                            </div>
+
+                            
+                        </div>
+                        <!--end of form container-->
+                        <hr>
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                {% comment %} <div class="d-flex justify-content-center"> {% endcomment %}
+                                    <h3>Brands</h3>
+                                </div>
+
+                                {% for brand in brands %}
+                                <div class="row justify-content-center">
+                                    <div class="col-12">
+                                        <input type="checkbox" class='brand-filter' name="brand" value={{brand.name}} id="{{brand.name}}" {% if brand.name in selected_brands %}checked{% endif %}>
+                                        <label class ='' for="{{brand.name}}">{{brand.name}}</label>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                {% comment %} </div> {% endcomment %}
+                        </div>
+
+                        <div class="row ml-auto">
+                            <div class="col-12 form-group">
+                                <input class='btn btn-primary' type="submit" value="submit">
+                            </div>
+                        </div>
+
+
+                    </form>
+                </aside>
+            </div>
+
+            <div class="col-12 col-md-9">
+                {% include 'partials/product_card.html' %}
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+<!--end of main-content div-->
+{%block scripts%}
+{% load static %}
+<script src= "{% static 'js/brandFilter.js' %}"></script>
+{%endblock scripts%}
+
+{% endblock body %}
+
+</html>

@@ -1,0 +1,31 @@
+<section class="container products-section">
+    <div class="row">
+        <div class="col-12">
+            <h1>{{section_title|title}}</h1>
+        </div>
+    </div>
+    <div class="row">
+        {% for product in products%}
+        <div class="col-12 col-md-4">
+            <div class="card product-card">
+                <a href={% url 'product-url' product.id%}>
+                    <img src={{product.image}} alt="" class="card-img-top">
+                    <div class="card-body">
+                        <div class="card-title">
+                            <h3>{{product.name | upper}}</h3>
+                        </div>
+                        <div class="card-text">
+                            <p class='product-card-description'>{{product.description}}</p>
+                            <p class='currency'><span class=''>EGP</span>
+                                {% load humanize %}
+                                {{product.price | intcomma}}
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!--end of card-->
+        </div>
+        {% endfor %}
+    </div>
+</section>

@@ -1,0 +1,18 @@
+
+#main-content{
+    margin-top: 2em;
+}
+
+
+.carousel-item{
+    overflow: hidden;
+}
+#main-carousel{
+    width: 100%;
+}
+
+#main-carousel img{
+    width: auto;
+    max-height: 400px;
+}
+

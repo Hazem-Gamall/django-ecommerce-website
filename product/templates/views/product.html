@@ -1,0 +1,90 @@
+{% extends 'views/base.html' %}
+{% block title %}
+{{product.name}}
+{% endblock title %}
+
+{% block head_elements %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/productStyles.css' %}">
+{% endblock head_elements %}
+
+{% block body %}
+{% include 'partials/header.html' %}
+
+<section id="main-content">
+    <div class="container">
+
+        <div class="media product">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-4">
+                        <img class='product-img align-self-center' src={{product.image}} alt="">
+                    </div>
+                    <div class="col-12 col-md-8">
+                        <div class="media-body " id='product-details'>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12 col-md-5">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <section class='title-section'>
+                                                    <h3>{{product.name | upper}}</h3>
+                                                </section>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <section class='brand-section'>
+                                                    <h5><strong>Brand</strong>: {{product.brand.name|title}}</h5>
+                                                </section>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <section class='price-section'>
+                                                    <h5><strong>EGP</strong>
+                                                        {% load humanize %}
+                                                        {{product.price | intcomma}}
+                                                    </h5>
+                                                </section>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--product description column-->
+            
+                                    <div class="col-7 align-self-center">
+                                        <section class="product-description">
+                                            <p>{{product.description}}</p>
+                                        </section>
+                                    </div>
+            
+            
+                                </div>
+                                <!--media row-->
+
+                                <div class="row">
+                                    <div class="col-12 d-flex mt-3 mb-5">
+                                        <button class='btn bg-primary text-light align-self-center' id='add_cart'><span
+                                                class='fa fa-shopping-cart'></span> Add to cart</button>
+                                    </div>
+                                </div>
+    
+            
+                            </div>
+            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+        </div>
+    </div>
+</section>
+{% endblock body %}
+
+{% block scripts %}
+    <script src="{% static 'js/addToCart.js'%}"></script>
+{% endblock scripts %}
