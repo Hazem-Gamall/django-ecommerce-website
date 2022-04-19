@@ -84,26 +84,35 @@
 
 </div>
 <!--end of main-content div-->
-
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-12 col-md-4">
-                <nav>
-                    <ul class="pagination d-flex justify-content-center">
-                        {% for page in paginator.page_range %}
-                            <li class="page-item {% if requested_page == page %} disabled {% endif %}"><a class="page-link" href="?page={{page}}">{{page}}</a></li>
-                        {% endfor %}
-                        
-                    </ul>
-                </nav>
-            </div>
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-4">
+            <nav>
+                <ul class="pagination d-flex justify-content-center">
+                    {% for page in page_range %}
+                        <li class="page-item {% if requested_page == page %} disabled {% endif %}"><a class="page-link" onclick="page_click({{page}})"> <span>{{page}}</span></a></li>
+                    {% endfor %}
+                    
+                </ul>
+            </nav>
         </div>
     </div>
+</div>
+
+<footer>
+    
 </footer>
 {%block scripts%}
 {% load static %}
 <script src="{% static 'js/brandFilter.js' %}"></script>
+
+<script>
+    const page_click = (page)=>{
+        const urlParams = new URLSearchParams(window.location.search);
+        urlParams.set('page', page);
+        window.location.search = urlParams;
+    }
+</script>
 {%endblock scripts%}
 
 {% endblock body %}

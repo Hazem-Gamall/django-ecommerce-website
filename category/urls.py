@@ -19,5 +19,5 @@ from . import views
 
 
 urlpatterns = [
-    path('<id>', views.index, name='category-url'),
+    path('<id>/', views.index, name='category-url'),
 ]

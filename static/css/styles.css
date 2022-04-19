@@ -96,3 +96,14 @@ body{
     cursor: pointer;
     background-color: #585e63 !important;
 }
+
+
+
+li:not(.disabled) a:not([href]) span{
+    color: #0275d8;
+    
+}
+
+a:not([href]):hover{
+    cursor: pointer;
+}

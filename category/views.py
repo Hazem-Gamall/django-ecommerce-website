@@ -14,7 +14,8 @@ def index(request, id):
     if brands_filter:
         products = Product.objects.filter(category=required_category, brand__name__in=brands_filter).order_by(price_filter)
     else:
-        products = Product.objects.filter(category=required_category).order_by(price_filter)       
+        products = Product.objects.filter(category=required_category).order_by(price_filter) 
+
     paginator = Paginator(products, 6)
     if requested_page:
         requested_page = int(requested_page)
@@ -22,4 +23,4 @@ def index(request, id):
     else:
         products = paginator.page(1)
         requested_page = 1
-    return render(request, 'views/products_display.html', {'requested_page':requested_page,'paginator':paginator,'section_title': required_category.name, 'products':products, 'checked':'min' if price_filter == 'price' else 'max', 'brands':Brand.objects.all(), 'selected_brands':brands_filter})
+    return render(request, 'views/products_display.html', {'requested_page':requested_page,'page_range':paginator.page_range,'section_title': required_category.name, 'products':products, 'checked':'min' if price_filter == 'price' else 'max', 'brands':Brand.objects.all(), 'selected_brands':brands_filter})
