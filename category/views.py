@@ -21,4 +21,5 @@ def index(request, id):
         products = paginator.page(requested_page)
     else:
         products = paginator.page(1)
+        requested_page = 1
     return render(request, 'views/products_display.html', {'requested_page':requested_page,'paginator':paginator,'section_title': required_category.name, 'products':products, 'checked':'min' if price_filter == 'price' else 'max', 'brands':Brand.objects.all(), 'selected_brands':brands_filter})
