@@ -35,5 +35,5 @@ def search(request):
         products = products.filter(brand__name__in=brands_filter).order_by(price_filter)
     else:
         products = products.filter().order_by(price_filter)       
-    return render(request, 'views/products_display.html', {'products':products, 'section_title':product,'categories':Category.objects.all(), 'brands':Brand.objects.all(), 'checked':'min' if price_filter == 'price' else 'max', 'selected_brands':brands_filter})
+    return render(request, 'views/products_display.html', {'products':products, 'section_title':product, 'brands':Brand.objects.all(), 'checked':'min' if price_filter == 'price' else 'max', 'selected_brands':brands_filter})
 

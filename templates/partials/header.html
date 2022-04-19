@@ -2,7 +2,7 @@
     <nav class="navbar bg-primary " id='main-nav'>
         <div class="d-flex ml-5 justify-content-between" id="search-header">
             <div id='website-logo'>
-                <a href="/" class="navbar-brand text-light">MyWebsite</a>
+                <a href="/" class="navbar-brand text-light"><i class='fa fa-store fa-lg'></i><strong> Store</strong></a>
                 {% if user.is_authenticated %}
                 <span class='text-light'>Welcome <strong>{{user}}</strong></span>
                 {% endif %}
@@ -38,7 +38,7 @@
                 </a>
                 {% if user.is_authenticated  %}
                 <a href="{% url 'order_history' %}" class='btn bg-primary' id='order_history'>
-                    <i class="fa fa-history fa-lg text-light"></i>
+                    <i class="fa fa-history fa-lg text-light"> Orders</i>
                 </a>
                 <a href="{% url 'user_logout' %}" class='btn bg-primary' id='logout'>
                     <i class="fa fa-sign-out fa-lg text-light">Logout</i>

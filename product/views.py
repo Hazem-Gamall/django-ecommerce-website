@@ -6,7 +6,7 @@ from django.http import JsonResponse
 def index(request, id):
     product = Product.objects.get(id = id)
     print(product)
-    return render(request, 'views/product.html', {'product':product, 'categories':Category.objects.all()})
+    return render(request, 'views/product.html', {'product':product})
 
 def api_product(request, id):
     product = Product.objects.get(id = id)
