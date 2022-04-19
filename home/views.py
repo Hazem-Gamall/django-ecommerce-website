@@ -4,6 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from product.models import Brand, Product
 from product.models import Category
+from django.core import paginator
 # from home.models import Product
 
 # Create your views here.
@@ -15,9 +16,7 @@ def index(request):
     
     offers = Product.objects.all()
     
-
-    template = loader.get_template('views/home.html')
-    return render(request, 'views/home.html', {'products':offers, 'section_title':'Best offers!', 'categories':Category.objects.all()})
+    return render(request, 'views/home.html', {'products':offers[:6], 'section_title':'Best offers!', 'categories':Category.objects.all()})
 
 def search(request):
     product = request.GET.get('product')
