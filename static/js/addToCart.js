@@ -1,7 +1,8 @@
 window.onload = () => {
     let add_button = document.querySelector('#add_cart');
     add_button.addEventListener('click', (event) => {
-        let product_id = window.location.pathname.slice(-1)
+        path_name = window.location.pathname;
+        let product_id = path_name.slice(path_name.lastIndexOf('/')+1)
         console.log(product_id);
         let cart = window.localStorage.getItem('cart');
         if (cart) {
