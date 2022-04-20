@@ -45,6 +45,7 @@
                     <li class='nav-item'>
                         <a href='/cart' class='btn bg-primary'>
                             <i class="fa fa-shopping-cart fa-lg text-light"> Cart</i>
+                            <span class="badge badge-pill badge-danger" id='cart-badge'>0</span>
                         </a>
                     </li>
                     {% if user.is_authenticated  %}
@@ -87,5 +88,11 @@
     login_btn.addEventListener('click', (event) => {
         window.localStorage.clear();
     })
+
+    let cart_badge = document.querySelector('#cart-badge');
+    cart_badge.textContent =  Object.keys(JSON.parse(window.localStorage.getItem('cart'))).length
+
+
+
 </script>
 {% endblock scripts %}

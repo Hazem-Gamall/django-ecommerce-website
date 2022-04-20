@@ -20,12 +20,20 @@ window.onload = () => {
         }
         localStorage.setItem('cart', JSON.stringify(cart));
 
+        let cart_badge = document.querySelector('#cart-badge');
+        cart_badge.textContent =  Object.keys(cart).length;    
+
         let main_content = document.querySelector('#main-content');
         let alert_div = document.createElement('div');
         alert_div.classList.add('alert', 'alert-success', 'font-weight-bold');
         alert_div.textContent = 'Product added to cart successfully';
         main_content.prepend(alert_div);
     })
+
+    window.onstorage = ()=>{
+        
+        alert('hola')    
+    }
 
 }
 
