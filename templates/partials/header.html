@@ -1,10 +1,10 @@
 <header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary" id='main-nav'>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary " id='main-nav'>
 
-        <div class="d-flex mx-auto justify-content-between" id="search-header">
-
-
-            <div id='website-logo'>
+        <div class="d-flex ml-5 justify-content-between" id="search-header">
+            
+            
+            <div id='website-logo' class='mb-2'>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-buttons">
                     <span class="navbar-toggler-icon navbar-dark"></span>
                 </button>
@@ -20,12 +20,14 @@
                 <div class="container d-flex">
                     <div class="d-flex" id='nav-search'>
 
-                        <select class='btn bg-secondary text-light' name="category" id="category-select">
-                            <option value="all">All</option>
-                            {% for category in categories %}
-                            <option value="{{category.name}}">{{category.name | capfirst}}</option>
-                            {% endfor %}
-                        </select>
+                        {% comment %} <div> {% endcomment %}
+                            <select class='btn bg-secondary text-light' name="category" id="category-select">
+                                <option value="all">All</option>
+                                {% for category in categories %}
+                                <option value="{{category.name}}">{{category.name | capfirst}}</option>
+                                {% endfor %}
+                            </select>
+                            {% comment %} </div> {% endcomment %}
                         <input class='form-control' type="text" id='search-bar' name='product'>
                         <button class='btn bg-success'>
                             <i class="fa fa-search"></i>
@@ -33,7 +35,8 @@
                     </div>
 
                 </div>
-
+        </div>
+        {% comment %} <div> {% endcomment %}
             </form>
 
 
@@ -42,6 +45,7 @@
                     <li class='nav-item'>
                         <a href='/cart' class='btn bg-primary'>
                             <i class="fa fa-shopping-cart fa-lg text-light"> Cart</i>
+                            <span class="badge badge-pill badge-danger" id='cart-badge'>0</span>
                         </a>
                     </li>
                     {% if user.is_authenticated  %}
@@ -86,6 +90,9 @@
     })
 
     let cart_badge = document.querySelector('#cart-badge');
-    cart_badge.textContent = Object.keys(JSON.parse(window.localStorage.getItem('cart'))).length
+    cart_badge.textContent =  Object.keys(JSON.parse(window.localStorage.getItem('cart'))).length
+
+
+
 </script>
 {% endblock scripts %}
