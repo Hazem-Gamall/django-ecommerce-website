@@ -2,6 +2,39 @@ body{
     background-image: url('https://www.toptal.com/designers/subtlepatterns/uploads/triangle-mosaic.png');
 }
 
+#search-bar{
+    width: 100%;
+    border-radius: 0;
+}
+#category-select{
+    height: 100%;
+    width: fit-content;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+#category-select:focus{
+    outline: 1px solid white;
+}
+
+#category-select:hover{
+    cursor: pointer;
+    background-color: #585e63 !important;
+}
+
+
+@media screen and (max-width:600px) {
+    #search-header{
+        margin-left: 0 !important;
+        flex-direction: column;
+    }
+    #category-select{
+        width: 10%;
+    }
+}
+
+
+
 #category-header{
     background-color: darkgrey;
 }
@@ -25,30 +58,9 @@ body{
 #category-header a:hover{
     outline: 2px black solid;
 }
-#search-bar{
-    width: 100%;
-    border-radius: 0;
-}
-
-@media screen and (max-width:600px) {
-    #search-bar{
-        width: 100%;
-    }
-
-    #search-header{
-        margin-left: 0 !important;
-        flex-direction: column;
-    }
-    #category-select{
-        width: 10%;
-    }
-}
-
 
 .product-card{
     margin-bottom: 1em;
-    max-height: 31em;
-
 }
 
 .product-card-description{
@@ -64,33 +76,16 @@ body{
 .product-card img{
     height: 300px;
     max-height: 300px;
-    overflow: hidden;
 }
 
 .product-card:hover{
     box-shadow: 5px 7px 12px rgb(219, 219, 219);
 }
 
-#category-select{
-    height: 100%;
-    width: 45%;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-}
-
-#category-select:focus{
-    outline: 1px solid white;
-}
-
-#category-select:hover{
-    cursor: pointer;
-    background-color: #585e63 !important;
-}
-
 
 
 li:not(.disabled) a:not([href]) span{
-    color: #0275d8;
+    color: var(--primary);
     
 }
 

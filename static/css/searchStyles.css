@@ -5,18 +5,8 @@
 
 
 #filters{
-    /* float: left; */
-    width: 100%;
     outline: grey 1px solid;
-    /* margin-left: 0.7em; */
-    /* margin-top: 4em; */
     box-sizing: border-box;
     box-shadow: 1px 2px 5px rgb(219, 219, 219);
-}
-
-
-.products-section{
-    /* float: right; */
-    width: 100%;
 }
 
