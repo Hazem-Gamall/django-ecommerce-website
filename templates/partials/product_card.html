@@ -12,14 +12,17 @@
                     <img src={{product.image}} alt="" class="card-img-top">
                     <div class="card-body">
                         <div class="card-title">
-                            <h3>{{product.name | upper}}</h3>
+                            <h4>{{product.name | upper}}</h4>
                         </div>
+                        <hr>
                         <div class="card-text">
                             <p class='product-card-description'>{{product.description}}</p>
-                            <p class='currency'><span class=''>EGP</span>
-                                {% load humanize %}
-                                {{product.price | intcomma}}
-                            </p>
+                            <strong>
+                                <p> EGP
+                                    {% load humanize %}
+                                    {{product.price | intcomma}}
+                                </p>
+                            </strong>
                         </div>
                     </div>
                 </a>
