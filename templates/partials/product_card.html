@@ -1,3 +1,4 @@
+{% load static %}
 <section class="container products-section">
     <div class="row">
         <div class="col-12">
@@ -9,7 +10,9 @@
         <div class="col-12 col-md-4">
             <div class="card product-card">
                 <a href={% url 'product-url' product.id%}>
-                    <img src={{product.image}} alt="" class="card-img-top">
+                    {% with 'images/'|add:product.image as image_src%}
+                    <img src="{% static image_src %}" alt="" class="card-img-top">
+                    {% endwith %}
                     <div class="card-body">
                         <div class="card-title">
                             <h4>{{product.name | upper}}</h4>

@@ -84,10 +84,11 @@
 
 {% block scripts %}
 <script>
-    let login_btn = document.querySelector('#logout');
-    login_btn.addEventListener('click', (event) => {
-        window.localStorage.clear();
-    })
+    let logout_btn = document.querySelector('#logout');
+    if(logout_btn)
+        logout_btn.addEventListener('click', (event) => {
+            window.localStorage.clear();
+        })
 
     let cart_badge = document.querySelector('#cart-badge');
     cart_badge.textContent =  Object.keys(JSON.parse(window.localStorage.getItem('cart'))).length

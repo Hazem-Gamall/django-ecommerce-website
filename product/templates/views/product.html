@@ -1,10 +1,11 @@
 {% extends 'views/base.html' %}
+{% load static %}
+
 {% block title %}
-{{product.name}}
+{{product.name | title}}
 {% endblock title %}
 
 {% block head_elements %}
-{% load static %}
 <link rel="stylesheet" href="{% static 'css/productStyles.css' %}">
 {% endblock head_elements %}
 
@@ -18,7 +19,9 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12 col-md-4">
-                        <img class='product-img align-self-center' src={{product.image}} alt="">
+                        {% with 'images/'|add:product.image as image_src %}
+                        <img class='product-img align-self-center' src="{% static image_src %}" alt="">
+                        {% endwith %}
                     </div>
                     <div class="col-12 col-md-8">
                         <div class="media-body " id='product-details'>

@@ -29,11 +29,5 @@ window.onload = () => {
         alert_div.textContent = 'Product added to cart successfully';
         main_content.prepend(alert_div);
     })
-
-    window.onstorage = ()=>{
-        
-        alert('hola')    
-    }
-
 }
 

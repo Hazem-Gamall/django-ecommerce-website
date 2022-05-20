@@ -23,7 +23,7 @@ def search(request):
         products = products.filter().order_by(price_filter)
 
     paginator = Paginator(products, 6)
-
+    
     if requested_page:
         requested_page = int(requested_page)
         products = paginator.page(requested_page)

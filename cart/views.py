@@ -5,8 +5,6 @@ from django.contrib.auth.decorators import login_required
 
 from cart.models import Order
 from product.models import Product
-import json
-# Create your views here.
 
 @login_required
 def index(request):

@@ -16,3 +16,6 @@ class ProductOrder(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     products = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField()
+
+    def __str__(self):
+        return f'order:{self.order}\nproducts{self.products}\nquantity:{self.quantity}'

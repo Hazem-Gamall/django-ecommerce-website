@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from product.models import Product
-from category.models import Category
 from django.http import JsonResponse
 # Create your views here.
 def index(request, id):

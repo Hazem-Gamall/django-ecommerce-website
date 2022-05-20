@@ -1,10 +1,9 @@
+// import {getCart} from './getCart.js';
+
 window.onload = () => {
-    let cart = window.localStorage.getItem('cart');
-    if (cart) {
-        cart = JSON.parse(cart);
-        console.log(cart);
-        renderCardsFromCart(cart);
-    }
+    let cart = getCart()
+    renderCardsFromCart(cart);
+    
     let checkout_form = document.querySelector('#checkout-form');
     checkout_form.addEventListener('submit', (event)=>{
         window.localStorage.clear();
@@ -19,7 +18,7 @@ let renderCardsFromCart = async (cart) => {
     main_card_body.innerHTML = ''
     let total_price = 0
     for (const id in cart) {
-        product = await (await fetch(`/product/api/${id}`)).json()
+        let product = await (await fetch(`/product/api/${id}`)).json()
         total_price += Number(product.price);
         let product_card = document.createElement('div');
         let product_card_row = document.createElement('div');
@@ -38,9 +37,7 @@ let renderCardsFromCart = async (cart) => {
         
         card_body_col.classList.add('col-12' ,'col-md-7');
 
-        card_img.src = product.image;
-        // card_img.style.width= '300px'
-        // card_img.style.height= '300px'
+        card_img.src = `/static/images/${product.image}`;
         card_img.classList.add('h-100', 'w-100');
 
         card_img_col.classList.add('col-12', 'col-md-5');
@@ -53,9 +50,8 @@ let renderCardsFromCart = async (cart) => {
 
         product_card_row.classList.add('row');
 
-        let strong_tag_quantity = document.createElement('strong');
-        strong_tag_quantity.textContent=`Quantity:${cart[id]}`;
-        product_quantity.appendChild(strong_tag_quantity);
+        
+        product_quantity.innerHTML = `<strong>Quantity: ${cart[id]}</strong>`;
 
 
         card_remove_button.classList.add('btn', 'btn-danger','remove-btn');
@@ -65,9 +61,7 @@ let renderCardsFromCart = async (cart) => {
             let cart = window.localStorage.getItem('cart');
             if(cart){
                 cart = JSON.parse(cart);
-                // console.log('before delete: ' + JSON.stringify(cart));
                 delete cart[event.target.id];
-                // console.log('after delete: ' + JSON.stringify(cart));
                 window.localStorage.setItem('cart', JSON.stringify(cart));
                 location.reload();
             }
@@ -77,21 +71,13 @@ let renderCardsFromCart = async (cart) => {
 
         card_body_col.append(card_body);
 
-        card_body.appendChild(card_text);
-        card_body.appendChild(product_quantity);
-        card_body.appendChild(card_remove_button);
-
+        card_body.append(card_text, product_quantity, card_remove_button);
 
         product_card_row.append(card_img_col, card_body_col);
 
+        product_card.append(card_header, product_card_row);
 
-        product_card.appendChild(card_header)   
-        product_card.appendChild(product_card_row);
-        
-        
-
-        main_card_body.appendChild(product_card);
-        main_card_body.appendChild(document.createElement('hr'))
+        main_card_body.append(product_card, document.createElement('hr'));
 
         let id_input = document.createElement('input');
         id_input.type='hidden';

@@ -1,10 +1,5 @@
-from unicodedata import category
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
-from django.template import loader
-from product.models import Brand, Product
-from product.models import Category
-from django.core.paginator import Paginator
+from product.models import Product
 # from home.models import Product
 
 # Create your views here.

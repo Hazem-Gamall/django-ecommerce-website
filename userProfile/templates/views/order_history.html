@@ -1,9 +1,10 @@
 {% extends 'views/base.html' %}
+{% block title %}History{% endblock title %}
+{% load static %}
 
 {% block body %}
 
 {% include 'partials/header.html' %}
-
 <div class="container">
     <div class="row">
         <div class="col-12">
@@ -21,29 +22,31 @@
                                 </div>
                             </div>
                             <div class="card-body col-10 mt-0 p-0 shadow">
-                                {% for product in order.products %}
+                                {% for product_dict in order.products %}
                                 <div class="card">
                                     <div class="row">
                                         <div class="col-12 col-md-4">
-                                            <img class='w-100' src="{{product.image}}" alt="">
+                                            {% with 'images/'|add:product_dict.product.image as image_src %}
+                                                <img class='w-100' src="{% static image_src%}" alt="">
+                                            {% endwith %}
                                         </div>
                                         <div class="col-12 col-md-8">
                                             <div class="card-body">
                                                 <div class="card-text">
                                                     <div>
-                                                        <p>{{product.description}}</p>
+                                                        <p>{{product_dict.product.description}}</p>
                                                         <hr>
                                                     </div>
                                                     <div class="row">
                                                         <div class='col-6'>
                                                             <h5>Brand:</h5>
-                                                            <p><strong>{{product.brand.name|title}}</strong></p>
+                                                            <p><strong>{{product_dict.product.brand.name|title}}</strong></p>
                                                             <hr>
                                                         </div>
                                                         <div class='col-6'>
                                                             <h5>Category:</h5>
                                                             <p><a
-                                                                    href="{% url 'category-url' product.category.id %}"><strong>{{product.category.name|title}}</strong></a>
+                                                                    href="{% url 'category-url' product_dict.product.category.id %}"><strong>{{product.category.name|title}}</strong></a>
                                                             </p>
                                                             <hr>
                                                         </div>
@@ -52,7 +55,10 @@
                                                     <div class="row justify-content-center">
                                                         <div>
                                                             <h5>Price:</h5>
-                                                            <p><strong>EGP {{product.price}}</strong></p>
+                                                            <p><strong>EGP {{product_dict.product.price}}</strong></p>
+                                                            
+                                                            <p><strong>Quantity:{{product_dict.quantity}}</strong></p>
+                                                            
                                                         </div>
                                                     </div>
 

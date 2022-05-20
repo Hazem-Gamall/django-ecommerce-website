@@ -1,9 +1,11 @@
 {% extends "views/base.html" %}
 
+{%load static%}
+
+{% block title %}Store{% endblock title %}
 
 {%block head_elements%}
 
-{%load static%}
 <link rel="stylesheet" href="{% static 'css/homeStyles.css'%}">
 {%endblock%}
 
@@ -16,7 +18,7 @@
             <div class="d-flex justify-content-center">
                 <a href="/product/1">
                     <img class='d-block carousel-img'
-                        src="https://freephonestores.com/wp-content/uploads/2021/09/iphone-13-pink-select-2021.png">
+                        src="{% static 'images/iphone-13-pink.png'%}">
                 </a>
             </div>
         </div>
@@ -27,7 +29,7 @@
             <div class="d-flex justify-content-center">
                 <a href="/product/3">
                     <img class='d-block carousel-img'
-                        src="https://dream2000.com/media/catalog/product/cache/df0fd26a5939738811f1a7c10cac02a5/1/_/1_401.jpg ">
+                        src="{% static 'images/note20.jpg' %}">
                 </a>
             </div>
 
