@@ -1,5 +1,3 @@
-// import {getCart} from './getCart.js';
-
 window.onload = () => {
     let cart = getCart()
     renderCardsFromCart(cart);
@@ -15,48 +13,51 @@ window.onload = () => {
 
 let renderCardsFromCart = async (cart) => {
     let main_card_body = document.querySelector('#main-card-body');
+    currency_formatter = new Intl.NumberFormat('en-US');
     main_card_body.innerHTML = ''
     let total_price = 0
     for (const id in cart) {
         let product = await (await fetch(`/product/api/${id}`)).json()
-        total_price += Number(product.price);
+
+        total_price += Number(product.price * cart[id]);
+
+
         let product_card = document.createElement('div');
-        let product_card_row = document.createElement('div');
-        let card_body = document.createElement('div');
-        let card_body_col = document.createElement('div');
-        let card_img = document.createElement('img');
-        let card_img_col = document.createElement('div');
-        let card_text = document.createElement('div');
-        let card_header = document.createElement('div');
-        let card_remove_button = document.createElement('button');
-        let product_quantity = document.createElement('p');
+        product_card.innerHTML = 
+        `<div class="card shadow">
+            <div class="card-header">
+                ${product.name.toUpperCase()}
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-5">
+                    <img class="h-100 w-100" src="/static/images/${product.image}">
+                    
+                </div>
+                <div class="col-12 col-md-7">
+                    <div class="card-body">
+                        <div class="card-text">
+                            ${product.description}
+                        </div>
+                        <p>
+                            <strong>Quantity: ${cart[id]}</strong>
+                        </p>
+                        <button class="btn btn-danger remove-btn" id=${id}>
+                            Remove
+                        </button>
+                        <p class="mt-3">
+                            <strong>Price: ${currency_formatter.format(product.price)}</strong>
+                        </p>
+                    </div>
 
-        product_card.classList.add('card', 'shadow');
+                </div>
+            </div>
+        </div>`
 
-        card_body.classList.add('card-body');
-        
-        card_body_col.classList.add('col-12' ,'col-md-7');
+        main_card_body.append(product_card, document.createElement('hr'));
+       
 
-        card_img.src = `/static/images/${product.image}`;
-        card_img.classList.add('h-100', 'w-100');
-
-        card_img_col.classList.add('col-12', 'col-md-5');
-
-        card_text.classList.add('card-text')
-        card_text.textContent = product.description;
-
-        card_header.classList.add('card-header');
-        card_header.textContent = product.name.toUpperCase();
-
-        product_card_row.classList.add('row');
-
-        
-        product_quantity.innerHTML = `<strong>Quantity: ${cart[id]}</strong>`;
-
-
-        card_remove_button.classList.add('btn', 'btn-danger','remove-btn');
-        card_remove_button.textContent = 'Remove';
-        card_remove_button.id = id;
+        card_remove_button = product_card.querySelector(`.btn`)
+        console.log(card_remove_button)
         card_remove_button.addEventListener('click', (event)=>{
             let cart = window.localStorage.getItem('cart');
             if(cart){
@@ -67,18 +68,7 @@ let renderCardsFromCart = async (cart) => {
             }
         });
 
-        card_img_col.append(card_img);
-
-        card_body_col.append(card_body);
-
-        card_body.append(card_text, product_quantity, card_remove_button);
-
-        product_card_row.append(card_img_col, card_body_col);
-
-        product_card.append(card_header, product_card_row);
-
-        main_card_body.append(product_card, document.createElement('hr'));
-
+       
         let id_input = document.createElement('input');
         id_input.type='hidden';
         id_input.name='id';
@@ -87,10 +77,16 @@ let renderCardsFromCart = async (cart) => {
         document.querySelector('#checkout-form').append(id_input);
     }
 
-    let total_price_element = document.createElement('h3');
-    total_price_element.textContent = `Total Price: EGP ${total_price}`;
-    total_price_element.classList.add('text-center');
-    main_card_body.appendChild(total_price_element);
+    let total_price_element = document.createElement('div');
+    total_price_element.innerHTML = 
+    `
+    <h3 class="text-center">
+        <strong>Total Price: EGP ${currency_formatter.format(total_price)}
+    </h3>
+    `;
+    // total_price_element.textContent = `Total Price: EGP ${currency_formatter.format(total_price)}`;
+    // total_price_element.classList.add('text-center');
+    main_card_body.append(total_price_element.firstElementChild);
 
 }
 
