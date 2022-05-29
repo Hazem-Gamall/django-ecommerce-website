@@ -54,6 +54,14 @@
                             <i class="fa fa-history fa-lg text-light"> Orders</i>
                         </a>
                     </li>
+                    {% if user.is_superuser %}
+                        <li class='nav-item'>
+                            <a href="{% url 'create-product' %}" class='btn bg-primary'> 
+                                <i class="fa fa-plus fa-lg text-light"> Add Product</i>
+                            </a>
+                        </li>
+                    {% endif %}
+
                     <li class='nav-item'>
                         <a href="{% url 'user_logout' %}" class='btn bg-primary' id='logout'>
                             <i class="fa fa-sign-out fa-lg text-light">Logout</i>

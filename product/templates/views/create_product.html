@@ -1,0 +1,28 @@
+{% extends 'views/base.html' %}
+
+
+
+{% block body %}
+{% include 'partials/header.html' %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-7">
+            <div class="card shadow mt-5">
+                <div class="card-body">
+                    <div class="card-title">
+                        <h2>Add Product</h2>
+                    </div>
+                    <form method='POST'>
+                        {% csrf_token %}
+                        {{form.as_p}}
+                        <button type='submit' class="btn bg-primary text-light">submit</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock body %}

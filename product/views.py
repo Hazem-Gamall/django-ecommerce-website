@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, HttpResponse
 from product.models import Product, Brand
 from django.http import JsonResponse
 from django.contrib import messages
+from .forms import ProductForm
 # Create your views here.
 def index(request, id):
     product = Product.objects.get(id = id)
@@ -21,6 +22,20 @@ def read_product(request, id):
     }
     print(product_dict)
     return JsonResponse(product_dict)
+
+def create_product(request):
+    if request.method == "POST":
+        form = ProductForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Product added successfully')
+            return redirect('/')
+        else:
+            messages.error(request, 'Product addition Failed')          
+            return render(request, 'views/create_product.html', {'form':form})
+    else:
+        form = ProductForm()
+        return render(request, 'views/create_product.html', {'form':form} )
 
 def update_product(request, id):
     if request.method == "POST":
