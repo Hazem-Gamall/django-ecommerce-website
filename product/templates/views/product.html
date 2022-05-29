@@ -14,18 +14,28 @@
 
 <section id="main-content">
     <div class="container">
-
         <div class="media product">
+
             <div class="container">
-                <div class="row">
-                    <div class="col-12 col-md-4">
-                        {% with 'images/'|add:product.image as image_src %}
-                        <img class='product-img align-self-center' src="{% static image_src %}" alt="">
-                        {% endwith %}
-                    </div>
-                    <div class="col-12 col-md-8">
-                        <div class="media-body " id='product-details'>
-                            <form action="{% url 'update-product' product.id %}" method="POST">
+                <form action="{% url 'update-product' product.id %}" method="POST">
+
+                    <div class="row">
+                        <div class="col-12 col-md-4">
+                            {% with 'images/'|add:product.image as image_src %}
+                                <img class='product-img align-self-center' src="{% static image_src %}" alt="">
+                                {% if user.is_superuser %}
+                                    <div class="form-group mt-3">
+                                        <label for="img_input"><strong>Iamge Path</strong></label>
+                                        <input type="text" name='image' id='img_input' value={{product.image}}
+                                            class='form-control'>
+                                    </div>
+                                {% endif %}
+                            {% endwith %}
+                            <hr>
+                        </div>
+                        
+                        <div class="col-12 col-md-8">
+                            <div class="media-body " id='product-details'>
                                 {% csrf_token %}
                                 <div class="container">
                                     <div class="row">
@@ -34,6 +44,7 @@
                                                 <div class="col-12">
                                                     <section class='title-section'>
                                                         {% if user.is_superuser %}
+                                                        <h5><strong>Name:</strong></h5>
                                                         <textarea class='form-control' name="name" cols="25"
                                                             rows="1">{{product.name}}</textarea>
                                                         {% else %}
@@ -126,23 +137,28 @@
 
 
                                 </div>
-                            </form>
-                            <div class="row mb-3">
-                                <div class="col-12 col-md-3">
-                                    <form action="{% url 'delete-product' product.id%}" method="POST">
-                                        {% csrf_token %}
-                                        <button type="submit" class="btn btn-danger"><span
-                                                class="fa fa-trash"></span> Delete</button>
-                                    </form>
-                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </form>
 
+                <div class="row mb-3 justify-content-center">
+                    <div class="col-12 col-md-3">
+                        <form action="{% url 'delete-product' product.id%}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger"><span class="fa fa-trash"></span>
+                                Delete</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+            <!--container-->
 
         </div>
+        <!--media-->
+
+
     </div>
 </section>
 {% endblock body %}

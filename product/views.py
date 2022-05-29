@@ -44,7 +44,8 @@ def update_product(request, id):
             name = new_data['name'],
             description = new_data['description'],
             price = new_data['price'],
-            brand_id = new_data['brand']
+            brand_id = new_data['brand'],
+            image = new_data['image']
             )
         messages.success(request, 'Product updated successfuly')
         return redirect('product-url', id=id)
