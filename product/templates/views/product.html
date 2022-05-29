@@ -26,8 +26,7 @@
                                 {% if user.is_superuser %}
                                     <div class="form-group mt-3">
                                         <label for="img_input"><strong>Iamge Path</strong></label>
-                                        <input type="text" name='image' id='img_input' value={{product.image}}
-                                            class='form-control'>
+                                        <textarea name='image' id='img_input' class='form-control'>{{product.image}}</textarea>
                                     </div>
                                 {% endif %}
                             {% endwith %}
@@ -141,16 +140,17 @@
                         </div>
                     </div>
                 </form>
-
-                <div class="row mb-3 justify-content-center">
-                    <div class="col-12 col-md-3">
-                        <form action="{% url 'delete-product' product.id%}" method="POST">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-danger"><span class="fa fa-trash"></span>
-                                Delete</button>
-                        </form>
+                {% if user.is_superuser %}
+                    <div class="row mb-3 justify-content-center">
+                        <div class="col-12 col-md-3">
+                            <form action="{% url 'delete-product' product.id%}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger"><span class="fa fa-trash"></span>
+                                    Delete</button>
+                            </form>
+                        </div>
                     </div>
-                </div>
+                {% endif %}
 
             </div>
             <!--container-->
