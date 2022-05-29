@@ -13,13 +13,13 @@ window.onload = () => {
 
 let renderCardsFromCart = async (cart) => {
     let main_card_body = document.querySelector('#main-card-body');
-    currency_formatter = new Intl.NumberFormat('en-US');
+    let currency_formatter = new Intl.NumberFormat('en-US');
     main_card_body.innerHTML = ''
     let total_price = 0
     for (const id in cart) {
         let product = await (await fetch(`/product/api/${id}`)).json()
-
-        total_price += Number(product.price * cart[id]);
+        let quantity = cart[id];
+        total_price += Number(product.price * quantity);
 
 
         let product_card = document.createElement('div');
@@ -39,7 +39,7 @@ let renderCardsFromCart = async (cart) => {
                             ${product.description}
                         </div>
                         <p>
-                            <strong>Quantity: ${cart[id]}</strong>
+                            <strong>Quantity: ${quantity}</strong>
                         </p>
                         <button class="btn btn-danger remove-btn" id=${id}>
                             Remove
@@ -72,7 +72,7 @@ let renderCardsFromCart = async (cart) => {
         let id_input = document.createElement('input');
         id_input.type='hidden';
         id_input.name='id';
-        id_input.value=`${id},${cart[id]}`;
+        id_input.value=`${id},${quantity}`;
         console.log(id_input);
         document.querySelector('#checkout-form').append(id_input);
     }

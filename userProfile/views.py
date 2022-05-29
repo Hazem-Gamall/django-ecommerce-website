@@ -1,4 +1,3 @@
-from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
@@ -17,8 +16,53 @@ def index(request):
         temp_order_dict['date'] = order.order_time
         temp_order_dict['products'] = []
         for product in order.products.all():
-            product_dict = {'product':product, 'quantity':ProductOrder.objects.get(order=order, products__id=product.id).quantity}
+            product_dict = {
+                'product':product,
+                'quantity':ProductOrder.objects.get(order=order, products__id=product.id).quantity
+                }
             temp_order_dict['products'].append(product_dict)
         orders.append(temp_order_dict) 
     # print(orders[0])    
     return render(request, 'views/order_history.html', {'orders':orders})
+
+
+
+# [
+#     {
+#         'date': order.order_time,
+#         'products':[
+#             {
+#                 'product':product(name, price, description...),
+#                 'quantity':number
+#             },
+#             {
+#                 'product':product(name, price, description...),
+#                 'quantity':number
+#             },
+#             {
+#                 'product':product(name, price, description...),
+#                 'quantity':number
+#             },
+#             {
+#                 'product':product(name, price, description...),
+#                 'quantity':number
+#             },
+#         ]
+#     },
+
+#        {
+#         'date': order.order_time,
+#         'products':[
+#             {
+#                 'product':product(name, price, description...),
+#                 'quantity':number
+#             },
+#             {
+#                 'product':product(name, price, description...),
+#                 'quantity':number
+#             },
+
+#         ]
+#     },
+
+# ]

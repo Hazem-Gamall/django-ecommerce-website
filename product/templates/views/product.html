@@ -25,69 +25,128 @@
                     </div>
                     <div class="col-12 col-md-8">
                         <div class="media-body " id='product-details'>
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-12 col-md-5">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <section class='title-section'>
-                                                    <h3>{{product.name | upper}}</h3>
-                                                </section>
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <section class='brand-section'>
-                                                    <h5><strong>Brand</strong>: {{product.brand.name|title}}</h5>
-                                                </section>
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <section class='price-section'>
-                                                    <h5><strong>EGP</strong>
-                                                        {% load humanize %}
-                                                        {{product.price | intcomma}}
-                                                    </h5>
-                                                </section>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--product description column-->
-            
-                                    <div class="col-7 align-self-center">
-                                        <section class="product-description">
-                                            <p>{{product.description}}</p>
-                                        </section>
-                                    </div>
-            
-            
-                                </div>
-                                <!--media row-->
+                            <form action="{% url 'update-product' product.id %}" method="POST">
+                                {% csrf_token %}
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-12 col-md-5">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <section class='title-section'>
+                                                        {% if user.is_superuser %}
+                                                        <textarea class='form-control' name="name" cols="25"
+                                                            rows="1">{{product.name}}</textarea>
+                                                        {% else %}
+                                                        <h3>{{product.name | upper}}</h3>
+                                                        {% endif %}
 
-                                <div class="row">
-                                    <div class="col-12 d-flex mt-3 mb-5">
-                                        <button class='btn bg-primary text-light align-self-center' id='add_cart'><span
-                                                class='fa fa-shopping-cart'></span> Add to cart</button>
+                                                    </section>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <section class='brand-section'>
+
+                                                        <h5><strong>Brand</strong>:
+                                                            {% if user.is_superuser %}
+                                                            <select name="brand" id="" class='form-control'>
+                                                                <option value="{{product.brand.id}}">
+                                                                    {{product.brand.name}}</option>
+                                                                {% for brand in brands %}
+                                                                {% if brand.id != product.brand.id %}
+                                                                <option value={{brand.id}}>{{brand.name}}</option>
+                                                                {% endif %}
+                                                                {% endfor %}
+
+                                                            </select>
+                                                            {% else %}
+                                                            {{product.brand.name|title}}
+                                                            {% endif %}
+                                                        </h5>
+                                                    </section>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <section class='price-section'>
+                                                        <h5><strong>EGP</strong>
+                                                            {% if user.is_superuser %}
+                                                            <input type="number" name="price" class='form-control'
+                                                                value={{product.price}}>
+                                                            {% else %}
+                                                            {% load humanize %}
+                                                            {{product.price | intcomma}}
+                                                            {% endif %}
+
+                                                        </h5>
+
+                                                    </section>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--product description column-->
+
+                                        <div class="col-7 align-self-center">
+                                            <section class="product-description">
+                                                {% if user.is_superuser %}
+                                                <textarea class='form-control' name="description" id="" cols="30"
+                                                    rows="7">{{product.description}}</textarea>
+                                                {% else %}
+                                                <p>{{product.description}}</p>
+                                                {% endif %}
+                                            </section>
+                                        </div>
+
+
                                     </div>
+
+                                    <!--media row-->
+                                    {% if user.is_superuser %}
+                                    <div class="row mb-3 justify-content-end">
+                                        <div class="col-12 col-md-3 mt-3">
+                                            <button type="submit" class="btn btn-success"><span
+                                                    class="fa fa-edit"></span> Submit</button>
+
+                                        </div>
+
+                                    </div>
+                                    {% else %}
+                                    <div class="row">
+                                        <div class="col-12 d-flex mt-3 mb-5">
+                                            <button class='btn bg-primary text-light align-self-center'
+                                                id='add_cart'><span class='fa fa-shopping-cart'></span> Add to
+                                                cart</button>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+
+
+
+
                                 </div>
-    
-            
+                            </form>
+                            <div class="row mb-3">
+                                <div class="col-12 col-md-3">
+                                    <form action="{% url 'delete-product' product.id%}" method="POST">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-danger"><span
+                                                class="fa fa-trash"></span> Delete</button>
+                                    </form>
+                                </div>
                             </div>
-            
                         </div>
                     </div>
                 </div>
             </div>
 
-            
+
         </div>
     </div>
 </section>
 {% endblock body %}
 
 {% block scripts %}
-    <script src="{% static 'js/addToCart.js'%}"></script>
+<script src="{% static 'js/addToCart.js'%}"></script>
 {% endblock scripts %}

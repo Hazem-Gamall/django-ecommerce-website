@@ -10,7 +10,7 @@ from product.models import Product
 def index(request):
     return render(request, 'views/cart.html')
 
-# @login_required
+# @login_required   
 def checkout(request):
     if request.method == 'POST':
         if 'id' in request.POST:
@@ -18,8 +18,10 @@ def checkout(request):
             order = Order(user=request.user)
             order.save()
             id_list = request.POST.getlist('id')
+            print(id_list)
             for str_dict in id_list:
-                cart_item_list = str_dict.split(',')
+                #str_dict = '9,1'
+                cart_item_list = str_dict.split(',')#['9','1']
                 product_id = cart_item_list[0]
                 product_quantity = cart_item_list[1]
                 print(product_id, product_quantity)

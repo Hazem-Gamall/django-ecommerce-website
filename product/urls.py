@@ -20,5 +20,7 @@ from . import views
 
 urlpatterns = [
     path('<id>', views.index, name='product-url'),
-    path('api/<id>', views.api_product)
+    path('api/<id>', views.read_product, name='read-product'),
+    path('api/edit/<id>', views.update_product, name='update-product'),
+    path('api/delete/<id>', views.delete_product,name='delete-product')
 ]
