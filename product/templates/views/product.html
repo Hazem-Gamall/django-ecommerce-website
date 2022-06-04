@@ -17,8 +17,9 @@
         <div class="media product">
 
             <div class="container">
-                <form action="{% url 'update-product' product.id %}" method="POST">
-
+                {% if user.is_superuser %}
+                    <form action="{% url 'update-product' product.id %}" method="POST">
+                {% endif %}
                     <div class="row">
                         <div class="col-12 col-md-4">
                             {% with 'images/'|add:product.image as image_src %}
@@ -139,7 +140,9 @@
                             </div>
                         </div>
                     </div>
-                </form>
+                {% if user.is_superuser %}
+                    </form>
+                {% endif %}
                 {% if user.is_superuser %}
                     <div class="row mb-3 justify-content-center">
                         <div class="col-12 col-md-3">

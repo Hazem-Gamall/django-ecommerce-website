@@ -5,9 +5,14 @@ from django.contrib import messages
 from .forms import ProductForm
 # Create your views here.
 def index(request, id):
-    product = Product.objects.get(id = id)
-    print(product)
-    return render(request, 'views/product.html', {'product':product, 'brands':Brand.objects.all()})
+    try:
+        product = Product.objects.get(id = id)
+        print(product)
+        return render(request, 'views/product.html', {'product':product, 'brands':Brand.objects.all()})
+    except Exception as e:
+        messages.error(request, e)
+        return redirect('/')
+
 
 def read_product(request, id):
     product = Product.objects.get(id = id)

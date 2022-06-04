@@ -6,4 +6,4 @@ class Category(models.Model):
     name = models.CharField(max_length=30)
 
     def __str__(self):
-        return f'id: {self.id}\nname: {self.name}'
+        return f'{self.name}'

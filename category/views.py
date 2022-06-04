@@ -1,7 +1,7 @@
 from itertools import product
 from django.shortcuts import render
 from category.models import Category
-from product.models import Brand, Product
+from product.models import Brand
 from django.core.paginator import Paginator
 # Create your views here.
 
@@ -12,9 +12,9 @@ def index(request, id):
     
     required_category = Category.objects.get(id = id)
     if brands_filter:
-        products = Product.objects.filter(category=required_category, brand__name__in=brands_filter).order_by(price_filter)
+        products = required_category.products.filter(brand__name__in=brands_filter).order_by(price_filter)
     else:
-        products = Product.objects.filter(category=required_category).order_by(price_filter) 
+        products = required_category.products.order_by(price_filter)
 
     paginator = Paginator(products, 6)
     if requested_page:

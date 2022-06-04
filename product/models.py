@@ -6,7 +6,7 @@ class Brand(models.Model):
     name = models.CharField(max_length=30)
     
     def __str__(self):
-        return f'id:{self.id}\nname:{self.name}'
+        return f'{self.name}'
 
 class Product(models.Model):
     name = models.CharField(max_length=50)
@@ -14,7 +14,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
     image = models.TextField()
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category,on_delete=models.CASCADE, related_name='products')
 
     def __str__(self):
         return f'id:{self.id}\nname: {self.name}\ndescription: {self.description}\nprice: {self.price}\nbrand: {self.brand}\nimage: {self.image}\ncategory: {self.category}'
